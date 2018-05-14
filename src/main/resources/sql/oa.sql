@@ -1,0 +1,104 @@
+CREATE TABLE `sys_user` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`real_name` VARCHAR(200) NULL DEFAULT NULL COMMENT '真实姓名',
+	`login_name` VARCHAR(200) NULL DEFAULT NULL COMMENT '登录账号',
+	`password` VARCHAR(200) NULL DEFAULT NULL COMMENT '登录密码',
+	`locked` INT(1) NULL DEFAULT NULL COMMENT '是否锁定 1 锁定 0 未锁定',
+	`enable` INT(1) NULL DEFAULT NULL COMMENT '是否启用 1 启用 0 停用',
+	`email` VARCHAR(100) NULL DEFAULT NULL COMMENT '电子邮箱',
+	`mobile` VARCHAR(50) NULL DEFAULT NULL COMMENT '电话号码',
+	`remarks` VARCHAR(1000) NULL DEFAULT NULL COMMENT '信息备注',
+	`position` VARCHAR(500) NULL DEFAULT NULL COMMENT '用户职位',
+	`last_login_time` DATE NULL DEFAULT NULL COMMENT '最后一次登录时间',
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统用户表';
+
+CREATE TABLE `sys_role` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`code` VARCHAR(200) NULL DEFAULT NULL COMMENT '角色编号',
+	`name` VARCHAR(200) NULL DEFAULT NULL COMMENT '角色名称',
+	`role_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '上级角色',
+	`remark` VARCHAR(1000) NULL DEFAULT NULL COMMENT '信息备注',
+	`frozen` INT(1) NULL DEFAULT NULL COMMENT '是否冻结 1 冻结 0 未冻结',
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统角色';
+
+CREATE TABLE `sys_menu` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`code` VARCHAR(200) NULL DEFAULT NULL COMMENT '角色编号',
+	`name` VARCHAR(200) NULL DEFAULT NULL COMMENT '角色名称',
+	`url` VARCHAR(500) NULL DEFAULT NULL COMMENT '菜单地址',
+	`alias` VARCHAR(500) NULL DEFAULT NULL COMMENT '菜单别名',
+	`menu_id` VARCHAR(500) NULL DEFAULT NULL COMMENT '上级菜单',
+	`enable` INT(1) NULL DEFAULT NULL COMMENT '是否启用 1 启用 0 停用',
+	`shows` INT(1) NULL DEFAULT NULL COMMENT '是否显示 1 显示 0 隐藏',
+	`remark` VARCHAR(1000) NULL DEFAULT NULL COMMENT '信息备注',
+	
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统菜单';
+
+
+CREATE TABLE `sys_role_menu` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`role_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '角色ID',
+	`menu_id` VARCHAR(200) NULL DEFAULT NULL COMMENT '菜单ID',
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统角色菜单表';
+
+CREATE TABLE `sys_user_role` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`user_id` VARCHAR(200) NULL DEFAULT NULL COMMENT '用户ID',
+	`role_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '角色ID',
+	
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统用户角色表';
+
+CREATE TABLE `sys_base_data` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`code` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典编号',
+	`name` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典名称',
+	`val` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典值',
+	`remark` VARCHAR(1000) NULL DEFAULT NULL COMMENT '信息备注',
+	`enable` INT(1) NULL DEFAULT NULL COMMENT '是否启用 1 启用  0 停用',
+	`sys_params_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '系统参数ID',
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统数据字典表';
+
+CREATE TABLE `sys_base_params` (
+	`id` VARCHAR(50) NOT NULL COMMENT '主键ID',
+	`create_time` DATE NULL DEFAULT NULL COMMENT '创建时间',
+	`update_time` DATE NULL DEFAULT NULL COMMENT '更新时间',
+	`status` INT(1) NULL DEFAULT NULL COMMENT '有效状态1 有效 0 无效',
+	`code` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典编号',
+	`name` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典名称',
+	`val` VARCHAR(200) NULL DEFAULT NULL COMMENT '字典值',
+	`enable` INT(1) NULL DEFAULT NULL COMMENT '是否启用 1 启用  0 停用',
+	`remark` VARCHAR(1000) NULL DEFAULT NULL COMMENT '信息备注',
+	PRIMARY KEY (`id`)
+)
+COMMENT='系统参数表';
+

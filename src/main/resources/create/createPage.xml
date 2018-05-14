@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity>
+	<item selectName="系统用户">
+		<package>com.iss.platform.user.entity</package>
+		<className>User</className>
+		<pagePath>/platform/user</pagePath>
+		<fullPath>com.iss.platform.user.entity.User</fullPath>
+	</item>
+	<item selectName="系统角色">
+		<package>com.iss.platform.role.entity</package>
+		<className>Role</className>
+		<pagePath>/platform/role</pagePath>
+		<fullPath>com.iss.platform.role.entity.Role</fullPath>
+	</item>
+	<item selectName="系统菜单">
+		<package>com.iss.platform.menu.entity</package>
+		<className>Menu</className>
+		<pagePath>/platform/menu</pagePath>
+		<fullPath>com.iss.platform.menu.entity.Menu</fullPath>
+	</item>
+	<item selectName="系统基础数据">
+		<package>com.iss.platform.baseData.entity</package>
+		<className>BaseData</className>
+		<pagePath>/platform/baseData</pagePath>
+		<fullPath>com.iss.platform.baseData.entity.BaseData</fullPath>
+	</item>
+	<item selectName="系统参数">
+		<package>com.iss.platform.sysParams.entity</package>
+		<className>SysParams</className>
+		<pagePath>/platform/sysParams</pagePath>
+		<fullPath>com.iss.platform.sysParams.entity.SysParams</fullPath>
+	</item>
+</entity>

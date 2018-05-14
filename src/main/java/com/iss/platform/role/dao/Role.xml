@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.platform.role.entity.Role">
+	<insert id="insert" parameterType="com.iss.platform.role.entity.Role">
+		insert into sys_role(id,create_time,update_time,status,code,name,remark,frozen)
+		values (#{id},#{createTime},#{updateTime},#{status},#{code},#{name},#{remark},#{frozen}		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_role where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_role where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.iss.platform.role.entity.Role">
+		update sys_role 
+		<trim prefix="set" prefixOverrides=",">
+			1=1
+			<if test="id != null">id = #{id},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="code != null">code = #{code},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="frozen != null">frozen = #{frozen},</if>
+		</trim>	</update>
+
+	<select id="get" parameterType="String" resultType="com.iss.platform.role.entity.Role">
+		select * from sys_role where id = #{id}
+	</select>
+
+	<select id="queryAll" parameterType="String" resultType="com.iss.platform.role.entity.Role">
+		select * from sys_role
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.iss.platform.role.entity.Role">
+		select * from sys_role
+			where 1 = 1 <include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.iss.platform.role.entity.Role">
+		select * from sys_role
+			where 1 = 1 <include refid="conditions" />
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null">and id = #{id}</if>
+			<if test="createTime != null">and create_time = #{createTime}</if>
+			<if test="updateTime != null">and update_time = #{updateTime}</if>
+			<if test="status != null">and status = #{status}</if>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="remark != null">and remark = #{remark}</if>
+			<if test="frozen != null">and frozen = #{frozen}</if>
+			<if test="endRow != null"> limit ${endRow}, ${pageSize}</if>
+		</trim>
+	</sql>
+</mapper>

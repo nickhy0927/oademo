@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.platform.user.entity.User">
+	<insert id="insert" parameterType="com.iss.platform.user.entity.User">
+		insert into sys_user(id,create_time,update_time,status,real_name,login_name,password,locked,enable,email,mobile,remark,position,last_login_time)
+		values (#{id},#{createTime},#{updateTime},#{status},#{realName},#{loginName},#{password},#{locked},#{enable},#{email},#{mobile},#{remark},#{position},#{lastLoginTime}		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_user where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_user where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.iss.platform.user.entity.User">
+		update sys_user 
+		<trim prefix="set" prefixOverrides=",">
+			1=1
+			<if test="id != null">id = #{id},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="realName != null">real_name = #{realName},</if>
+			<if test="loginName != null">login_name = #{loginName},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="locked != null">locked = #{locked},</if>
+			<if test="enable != null">enable = #{enable},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="position != null">position = #{position},</if>
+			<if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+		</trim>	</update>
+
+	<select id="get" parameterType="String" resultType="com.iss.platform.user.entity.User">
+		select * from sys_user where id = #{id}
+	</select>
+
+	<select id="queryAll" parameterType="String" resultType="com.iss.platform.user.entity.User">
+		select * from sys_user
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.iss.platform.user.entity.User">
+		select * from sys_user
+			where 1 = 1 <include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.iss.platform.user.entity.User">
+		select * from sys_user
+			where 1 = 1 <include refid="conditions" />
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null">and id = #{id}</if>
+			<if test="createTime != null">and create_time = #{createTime}</if>
+			<if test="updateTime != null">and update_time = #{updateTime}</if>
+			<if test="status != null">and status = #{status}</if>
+			<if test="realName != null">and real_name = #{realName}</if>
+			<if test="loginName != null">and login_name = #{loginName}</if>
+			<if test="password != null">and password = #{password}</if>
+			<if test="locked != null">and locked = #{locked}</if>
+			<if test="enable != null">and enable = #{enable}</if>
+			<if test="email != null">and email = #{email}</if>
+			<if test="mobile != null">and mobile = #{mobile}</if>
+			<if test="remark != null">and remark = #{remark}</if>
+			<if test="position != null">and position = #{position}</if>
+			<if test="lastLoginTime != null">and last_login_time = #{lastLoginTime}</if>
+			<if test="endRow != null"> limit ${endRow}, ${pageSize}</if>
+		</trim>
+	</sql>
+</mapper>
