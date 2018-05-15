@@ -98,13 +98,16 @@ function sortarr(data) {
 		var array = settings.checkedIds;
 		for (var i = 0; i < array.length; i++) {
 			var a = array[i];
-			if (a && a != null && a != "null") dataIds.push(a); 
+			if (a && a != null && a != "null") 
+				dataIds.push(a); 
 		}
 		dataIds = settings.checkedIds;
 		var tableId = settings.tableId.substring(1);
 		var title = tableId + "-tableTitle";
 		$("#" + title).remove();
-		$(this).before("<div id=\"" + title + "\" style=\"background:#f2f2f2;height:30px;line-height:30px;\"><span style=\"margin-left:7px;font-weight:bold\">" + settings.title + "</span><input type=\"hidden\" value=\"1\" id=\"" + tableId + "_currentPage\" name=\"" + tableId + "_currentPage\"/></div>");
+		$(this).before("<div id=\"" + title + "\" style=\"background:#f2f2f2;height:40px;line-height:40px;font-size:15px;\"><span style=\"margin-left:7px;font-weight:bold\">" 
+				+ settings.title + "</span><input type=\"hidden\" value=\"1\" id=\""
+				+ tableId + "_currentPage\" name=\"" + tableId + "_currentPage\"/></div>");
 		_create_table_head(settings);
 		if (settings.searchButtonId) {
 			$(settings.searchButtonId).click(function() {
@@ -123,15 +126,15 @@ function sortarr(data) {
 			_select_checkbox_all();
 		}, 500);
 		var queryParamsIds = settings.queryParamsId;
-		console.log(queryParamsIds.length);
+		//console.log(queryParamsIds.length);
 		for(var index in queryParamsIds) {
 			$(queryParamsIds[index]).keyup(function() {
-				$.openLoading();
+				$("#" + tableId + "_currentPage").val(1);
 				_query_data_ajxa(settings);
 				_select_checkbox_all();
 			});
 			$(queryParamsIds[index]).change(function() {
-				$.openLoading();
+				$("#" + tableId + "_currentPage").val(1);
 				_query_data_ajxa(settings);
 				_select_checkbox_all();
 			});
@@ -157,7 +160,11 @@ var _create_table_head = function(settings) {
 		var description = array[i].description ? array[i].description : "";
 		if ('id' != key) {
 			if (array[i].sort) {
-				th += "<th class=\"" + className + "\">" + description + "&nbsp;&nbsp;<a data-field=\"" + key + "\" class=\"sort sorting\" href=\"#\"></a></th>";
+				if(array[i].sortField){
+					key = array[i].sortField
+				}
+				th += "<th class=\"" + className + "\">" + description + "&nbsp;&nbsp;<a data-field=\"" 
+				+ key + "\" class=\"sort sorting\" href=\"#\"></a></th>";
 			} else
 				th += "<th class=\"" + className + "\">" + description + "</th>";
 		}
@@ -322,20 +329,29 @@ var _create_grid_table = function(data, settings) {
 				var checked = value ? '' : '';
 				if (!settings.single) {
 					if (bool)
-						tdObj += "<td style=\"width:25px;\"><input checked=\"checked\" data-id=\"" + jsonStr['id'] + "\" " + checked + " style=\"width: 15px;height: 18px;\" type=\"checkbox\" name=\"checkOne\"/></td>";
+						tdObj += "<td style=\"width:25px;\"><input checked=\"checked\" data-id=\"" + jsonStr['id'] + "\" " 
+						+ checked + " style=\"width: 15px;height: 18px;\" type=\"checkbox\" name=\"checkOne\"/></td>";
 					else
-						tdObj += "<td style=\"width:25px;\"><input data-id=\"" + jsonStr['id'] + "\" " + checked + " style=\"width: 15px;height: 18px;\" type=\"checkbox\" name=\"checkOne\"/></td>";
+						tdObj += "<td style=\"width:25px;\"><input data-id=\"" + jsonStr['id'] + "\" " 
+						+ checked + " style=\"width: 15px;height: 18px;\" type=\"checkbox\" name=\"checkOne\"/></td>";
 				} else {
 					if (bool)
-						tdObj += "<td style=\"width:25px;\"><input checked=\"checked\" data-id=\"" + jsonStr['id'] + "\" " + checked + " style=\"width: 15px;height: 18px;\" type=\"radio\" name=\"checkOne\"/></td>";
+						tdObj += "<td style=\"width:25px;\"><input checked=\"checked\" data-id=\"" + jsonStr['id'] + "\" " 
+						+ checked + " style=\"width: 15px;height: 18px;\" type=\"radio\" name=\"checkOne\"/></td>";
 					else
-						tdObj += "<td style=\"width:25px;\"><input data-id=\"" + jsonStr['id'] + "\" " + checked + " style=\"width: 15px;height: 18px;\" type=\"radio\" name=\"checkOne\"/></td>";
+						tdObj += "<td style=\"width:25px;\"><input data-id=\"" + jsonStr['id'] + "\" " 
+						+ checked + " style=\"width: 15px;height: 18px;\" type=\"radio\" name=\"checkOne\"/></td>";
 				}
 			}
 			if (key != 'id') {
 				if (!value) {
 					value = "";
 				}
+				/*if(key != 'operate') {
+					var tdValue = (value && value.length > 13) ? value.substring(0, 13) + '...' : value;
+					tdObj += "<td style=\"text-overflow: clip;white-space: pre-wrap;\" class=\"" + array[i].className + "\" title=\"" + value + "\">" + tdValue + "</td>";
+				} else {
+				}*/
 				tdObj += "<td style=\"text-overflow: clip;white-space: pre-wrap;\" class=\"" + array[i].className + "\">" + value + "</td>";
 			}
 		}
@@ -349,9 +365,12 @@ var _create_grid_table = function(data, settings) {
 		var curr = (data.currentPage - 1) * settings.pageSize + 1;
 		var a = data.currentPage * settings.pageSize > data.totalRecord ? data.totalRecord : data.currentPage * settings.pageSize;
 		var pos = data.currentPage > 0 ? a : (1 * settings.pageSize);
-		trStr += "<tr class=\"borpage-none\"><td class=\"bor-none\" colspan=\"2\">显示 " + curr + " 到 " + pos + " ，共 " + data.totalRecord + " 条</td><td class=\"bor-none tdpage-pos\" colspan=\"" + (array.length - 1) + "\"><div id=" + pagerId + " style=\"height: 30px;\" class=\"M-box r\"></div></td></tr>"
+		trStr += "<tr class=\"borpage-none\"><td class=\"bor-none\" colspan=\"2\">显示 " + curr + " 到 " + pos + " ，共 " + data.totalRecord 
+		+ " 条</td><td class=\"bor-none tdpage-pos\" colspan=\"" + (array.length - 1) + "\"><div id=" + pagerId 
+		+ " style=\"height: 30px;\" class=\"M-box r\"></div></td></tr>"
 	} else if (objs.length == 0)
-		trStr += "<tr class=\"borpage-none\"><td class=\"bor-none tdpage-pos text-r\" style=\"\" colspan=\"" + (array.length + 1) + "\">没有符合条件的数据</div></td></tr>"
+		trStr += "<tr class=\"borpage-none\"><td class=\"bor-none tdpage-pos text-r\" style=\"text-align:center !important\" colspan=\"" 
+			+ (array.length + 1) + "\">没有符合条件的数据</div></td></tr>"
 	var _tb_id = tableId + "-data-body";
 	/*$("#" + tableId +"_currentPage").val('');*/
 	/*$("#" + _tb_id).empty();*/

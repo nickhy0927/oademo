@@ -15,7 +15,7 @@
 			onSelected: undefined,
 			dataType : 'JSON'
 		}, options || {});
-		$(this).keydown(function(event) {
+		$(this).keyup(function(event) {
 			var params = options.params;
 			for(var key in params){
 				var key_value = key.split("_");

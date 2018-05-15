@@ -78,11 +78,11 @@
 }
 
 .sel-list2 li {
-	width: 320px;
+	width: 420px;
 }
 
-.sel-list2 li label {
-	/* min-width: 100px; */
+.sel-list li label {
+	width:160px;
 	text-align: right;
 	float: left;
 }
@@ -989,4 +989,8 @@ max-width
 	color: #000;
 	display: block;
 	border-bottom: 1px solid #000;
+}
+
+.borpage-none .text-r {
+	text-align: center !important;
 }

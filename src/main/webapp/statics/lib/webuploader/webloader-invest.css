@@ -38,7 +38,7 @@
 	overflow: hidden;
 	bottom: 0;
 	margin: 5px;
-	position: absolute;
+	position: unset;
 }
 .imgloadinfo {
 	height: 20px;
