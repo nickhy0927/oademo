@@ -41,12 +41,14 @@
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.iss.platform.role.entity.Role">
 		select * from sys_role
-			where 1 = 1 <include refid="conditions" />
+			where 1 = 1 
+			<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.iss.platform.role.entity.Role">
 		select * from sys_role
-			where 1 = 1 <include refid="conditions" />
+			where 1 = 1 
+			<include refid="conditions" />
 	</select>
 
 	<sql id="conditions">

@@ -1,10 +1,9 @@
-<%@page import="com.iss.itreasury.module.systemmanage.user.entity.User"%>
-<%@page import="com.iss.itreasury.syscore.utils.Singleton"%>
+<%@page import="com.orm.utils.Singleton"%>
+<%@page import="com.iss.platform.user.entity.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://commons.tag" prefix="page" %>
+<%@ taglib uri="http://www.common.page/core" prefix="page" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<%@ taglib prefix="permission" uri="http://iss.premission.com" %>
 <c:set value="${pageContext.request.contextPath }" var="ctx"></c:set>
 <page:extends name="title">信息化管理系统</page:extends>
 <page:extends name="css">
@@ -74,7 +73,7 @@
 			$("#Hui-msg").mouseleave(function(){
 				$(this).children("ul").hide();
 			});
-			initNotice();
+			//initNotice();
 		})
 		
 		function view_self_info () {
@@ -184,12 +183,12 @@
 			<div class="container-fluid cl"> 
 				<a class="logo navbar-logo f-l mr-10 hidden-xs" href="javascript:;"><img src="${ctx}/statics/images/title_icon2.png" alt="logo" style="height: 40px;width: 40px;"></a> 
 				<a class="logo navbar-logo-m f-l mr-10 visible-xs" href="javascript:;"><img src="${ctx}/statics/images/title_icon.png" alt="logo" style="height: 40px;width: 40px;"></a> 
-				<span class="logo navbar-slogan f-l mr-10 hidden-xs logo-txt">云南能投</span> 
+				<span class="logo navbar-slogan f-l mr-10 hidden-xs logo-txt">OA办公系统</span> 
 				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 				<nav id="top-navigation" class="nav navbar-nav">
 					<ul class="cl">
 						<c:forEach items="${menuList}" var="menu" varStatus="item">
-                            <permission:tag alias="${menu.menuAlias}">
+                            <page:permission alias="${menu.menuAlias}">
                                 <c:choose>
                                     <c:when test="${item.index == 0}">
                                         <li class="navbar-levelone current"><a href="javascript:;">${menu.menuName}</a></li>
@@ -198,7 +197,7 @@
                                         <li class="navbar-levelone"><a href="javascript:;">${menu.menuName}</a></li>
                                     </c:otherwise>
                                 </c:choose>
-                            </permission:tag>
+                            </page:permission>
 						</c:forEach>
 					</ul>
 				</nav>
@@ -208,9 +207,13 @@
 						<li class="dropDown dropDown_hover">
 							<a href="#" class="dropDown_A">
 								<% 
-									User user = Singleton.getSingletonUser();
+									User user = Singleton.getUserInfo();
+									if(user != null) {
 								%>
-								<%=user.getLoginName() %>
+									<%=user.getLoginName() %>
+								<% } else {%>
+								admin
+								<% } %>
 								<i class="Hui-iconfont">&#xe6d5;</i>
 							</a>
 							<ul class="dropDown-menu menu radius box-shadow">
@@ -234,12 +237,12 @@
 	<aside class="Hui-aside">
 		<c:forEach items="${menuList}" var="menu" varStatus="it">
 			<c:set value="${menu.children}" var="children"></c:set>
-            <permission:tag alias="${menu.menuAlias}">
+            <page:permission alias="${menu.menuAlias}">
                 <div class="menu_dropdown bk_2">
                     <dl id="menu-article">
                         <c:forEach items="${children}" var="child">
                             <c:set value="${child.children}" var="cch"></c:set>
-                            <permission:tag alias="${child.menuAlias}">
+                            <page:permission alias="${child.menuAlias}">
                             	<dt>
 	                                <i class="Hui-iconfont">&#xe616;</i>
 	                                ${child.menuName}
@@ -248,7 +251,7 @@
 	                            <dd>
 	                                <ul>
 	                                    <c:forEach items="${cch}" var="cc">
-	                                        <permission:tag alias="${cc.menuAlias}">
+	                                        <page:permission alias="${cc.menuAlias}">
 	                                            <li>
 	                                            	<c:choose>
 	                                            		<c:when test="${fn:length(cc.children) > 0}">
@@ -275,15 +278,15 @@
 	                                            		</c:otherwise>
 	                                            	</c:choose>
 	                                            </li>
-	                                        </permission:tag>
+	                                        </page:permission>
 	                                    </c:forEach>
 	                                </ul>
 	                            </dd>
-                            </permission:tag>
+                            </page:permission>
                         </c:forEach>
                     </dl>
                 </div>
-            </permission:tag>
+            </page:permission>
 		</c:forEach>
 	</aside>
 	<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -320,4 +323,4 @@
 	</div>
 	<!-- //content -->
 </page:extends>
-<jsp:include page="/parent/base_page.jsp" />
+<jsp:include page="/parent/basepage.jsp" />

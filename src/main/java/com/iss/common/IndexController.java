@@ -28,15 +28,15 @@ public class IndexController {
 		map.put("$2", "value2");
 		map.put("$3", "value3");
 		System.out.println("结果:" + FileTools.format("$1$2$3", map));
-		messageObject.setObject(content);
-		messageObject.setSuccessMessage("获取页面成功");
+		messageObject.setResult(content);
+		messageObject.ok("获取页面成功");
 		try {
 			messageObject.returnData(response, messageObject);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "index";
 	}

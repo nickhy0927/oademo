@@ -1,6 +1,6 @@
 <%@ page import="java.util.UUID" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://commons.tag" prefix="page" %>
+<%@ taglib uri="http://www.common.page/core" prefix="page" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set value="${pageContext.request.contextPath }" var="ctx"></c:set>
 <page:extends name="title">用户登录</page:extends>
@@ -34,18 +34,18 @@
         function login() {
         	$.openLoading();
             $.ajax({
-                url : '${ctx}/login.do' ,
+                url : '${ctx}/login.json' ,
                 async : false ,
                 method:'POST',
                 dataType:'JSON',
                 data:$("#form-login").serialize(),
                 success : function (data) {
-                    var index = data.object;
-                    if (data.responseCode == 200) {
+                    var index = data.result;
+                    if (data.code == 200) {
                         window.location.href = ctx + "/" + index + "?jsessionid=<%=UUID.randomUUID().toString().replaceAll("-","").toLowerCase()%>";
                     } else {
                         $.closeLoading();
-                        $("#errMsg").html(data.responseMessage);
+                        $("#errMsg").html(data.msg);
                         setTimeout(function () {
                             $("#errMsg").html('');
                         },3000);
@@ -108,4 +108,4 @@
     </div>
     <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.1</div>
 </page:extends>
-<jsp:include page="/parent/base_page.jsp"/>
+<jsp:include page="/parent/basepage.jsp"/>

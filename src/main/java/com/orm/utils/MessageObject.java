@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 
 public class MessageObject {
 
-	private int responseCode;
-	private String responseMessage;
-	private Object object;
+	private int code;
+	private String msg;
+	private Object result;
 
 	private MessageObject() {
 	}
@@ -20,20 +20,28 @@ public class MessageObject {
 		return new MessageObject();
 	}
 
-	public String getResponseMessage() {
-		return responseMessage;
-	}
-	
-	public int getResponseCode() {
-		return responseCode;
+	public int getCode() {
+		return code;
 	}
 
-	public Object getObject() {
-		return object;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
-	public void setObject(Object object) {
-		this.object = object;
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public Object getResult() {
+		return result;
+	}
+
+	public void setResult(Object result) {
+		this.result = result;
 	}
 
 	public static class ResultCode {
@@ -43,14 +51,14 @@ public class MessageObject {
 
 	}
 
-	public void setErrorMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
-		this.responseCode = ResultCode.FAILIAR;
+	public void error(String msg) {
+		this.msg = msg;
+		this.code = ResultCode.FAILIAR;
 	}
 
-	public void setSuccessMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
-		this.responseCode = ResultCode.SUCCESS;
+	public void ok(String msg) {
+		this.msg = msg;
+		this.code = ResultCode.SUCCESS;
 	}
 
 	public void returnData(HttpServletResponse response, MessageObject messageObject) throws IOException {

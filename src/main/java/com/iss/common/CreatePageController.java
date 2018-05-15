@@ -46,7 +46,7 @@ public class CreatePageController {
 		String className = request.getParameter("className");
 		CreatePage createPage = CreatePageUtils.createPageMaps.get(className);
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-		messageObject.setSuccessMessage("获取信息成功");
+		messageObject.ok("获取信息成功");
 		try {
 			createService.init(createPage);
 			editService.init(createPage);

@@ -30,9 +30,9 @@ var _err_callback = function (XMLHttpRequest, error, errorThrown) {
 var _success_callback = function (response) {
     var data = eval("(" + response + ")");
     console.log(data)
-    if (data.responseCode == 200) {
-    	$("#test").html(data.object)
-    	$.openTip(data.responseMessage,true, function() {
+    if (data.code == 200) {
+    	$("#test").html(data.result)
+    	$.openTip(data.msg,true, function() {
     		$.closeLoading();
 //    		parent.window.location.href = ctx + '/system/user/userList.do';
 //            var index = parent.layer.getFrameIndex(window.name);
